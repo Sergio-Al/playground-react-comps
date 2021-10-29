@@ -1,3 +1,7 @@
+# Important: Modify the version of node-sass
+
+In package.json, make sure you are using the right version of node-sass with your node version, visit the npm page for node-sass
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
