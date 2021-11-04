@@ -1,12 +1,9 @@
-import React from "react";
-import ColorList from "./ColorList.js";
-import AddColorForm from "./AddColorForm";
+import React, { useEffect, useLayoutEffect } from "react";
+// import ColorList from "./ColorList.js";
+// import AddColorForm from "./AddColorForm";
 
 export default function App() {
-  return (
-    <div className="container">
-      <AddColorForm />
-      <ColorList />
-    </div>
-  );
+  useEffect(() => console.log("useEffect"));
+  useLayoutEffect(() => console.log("useLayoutEffect"));
+  return <div className="container">We're ready!</div>;
 }
