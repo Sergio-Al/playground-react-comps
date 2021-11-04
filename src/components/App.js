@@ -1,47 +1,44 @@
-import React, { useState, useEffect, useLayoutEffect } from "react";
-// import ColorList from "./ColorList.js";
-// import AddColorForm from "./AddColorForm";
+import React, { useState, useCallback, memo } from "react";
 
-// use of useLayoutEffect to calculate and capture of height and width of a screen
-// before the browser paints the render to the screen
-function useWindowSize() {
-  const [width, setWidth] = useState(0);
-  const [height, setHeight] = useState(0);
+// pure component
+const Cat = ({ name, meow = (f) => f }) => {
+  console.log(`rendering ${name}`);
+  return <p onClick={() => meow(name)}> {name} </p>;
+};
 
-  const resize = () => {
-    setWidth(window.innerWidth);
-    setHeight(window.innerHeight);
-  };
+// use of memo with predicate
+const PureCat = memo(
+  Cat,
+  (prevProps, nextProps) => prevProps.name === nextProps.name
+);
 
-  useLayoutEffect(() => {
-    window.addEventListener("resize", resize);
-    resize();
-    return () => window.removeEventListener("resize", resize);
-  }, []);
+// useCallback for meowing cat
+const AppMeowing = () => {
+  const meow = useCallback((name) => console.log(`${name} has meowed`, []));
+  return <PureCat name="Biscuit" meow={meow} />;
+};
 
-  return [width, height];
-}
+// using All features, // Prompt is not recommended in real apps
+const AppAll = () => {
+  const [cats, setCats] = useState(["Biscuit", "Jungle", "Outlaw"]);
+  const meow = useCallback((name) => console.log(`${name} has meowed`, []));
+  return (
+    <>
+      {cats.map((name, i) => (
+        <PureCat key={i} name={name} meow={meow} />
+      ))}
+      <button onClick={() => setCats([...cats, prompt("name a cat")])}>
+        Add a Cat
+      </button>
+    </>
+  );
+};
 
-// another use of useEffect, tracking the mouse position
-function useMousePosition() {
-  const [x, setX] = useState(0);
-  const [y, setY] = useState(0);
-
-  const setPosition = ({ x, y }) => {
-    setX(x);
-    setY(y);
-  };
-
-  useLayoutEffect(() => {
-    window.addEventListener("mousemove", setPosition);
-    return () => window.removeEventListener("mousemove", setPosition);
-  }, []);
-
-  return [x, y];
-}
-
+// Don't use propmt in a real app
 export default function App() {
-  useEffect(() => console.log("useEffect"));
-  useLayoutEffect(() => console.log("useLayoutEffect"));
-  return <div className="container">We're ready!</div>;
+  return (
+    <div className="container">
+      <AppAll />
+    </div>
+  );
 }
