@@ -34,8 +34,28 @@ const AppAll = () => {
   );
 };
 
+// we are using async/await for the github api
+async function requestGithubUser(githubLogin) {
+  try {
+    const response = await fetch(`https://api.github.com/users/${githubLogin}`);
+    const userData = await response.json();
+    console.log(userData);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 // Don't use propmt in a real app
 export default function App() {
+  // fetch data with promises
+  //   fetch(`https://api.github.com/users/sergio-al`)
+  //     .then((response) => response.json())
+  //     .then(console.log)
+  //     .catch(console.error);
+
+  //fetch data with async/await
+  requestGithubUser("sergio-al");
+
   return (
     <div className="container">
       <AppAll />
