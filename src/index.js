@@ -1,10 +1,10 @@
 import React, { createContext } from "react";
 import { render } from "react-dom";
 import "./assets/styles/styles.scss";
-import App from "./components/app-files/AppPureComps";
+import App from "./components/app-files/AppSavingData";
 import reportWebVitals from "./reportWebVitals";
 import colors from "./utils/color-data.json";
-import ColorProvider from "./components/color-hooks"
+import ColorProvider from "./components/color-hooks";
 
 export const ColorContext = createContext();
 
