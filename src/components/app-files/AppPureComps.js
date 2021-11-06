@@ -1,4 +1,4 @@
-import React, { useState, useCallback, memo } from "react";
+import React, { useState, useEffect, useCallback, memo } from "react";
 
 // pure component
 const Cat = ({ name, meow = (f) => f }) => {
@@ -45,20 +45,27 @@ async function requestGithubUser(githubLogin) {
   }
 }
 
+function GithubUser({ login }) {
+  const [data, setData] = useState();
+
+  useEffect(() => {
+    if (!login) return;
+    fetch(`https://api.github.com/users/${login}`)
+      .then((response) => response.json())
+      .then(setData)
+      .catch(console.error);
+  }, [login]);
+
+  if (data) return <pre>{JSON.stringify(data, null, 2)}</pre>;
+
+  return null;
+}
+
 // Don't use propmt in a real app
 export default function App() {
-  // fetch data with promises
-  //   fetch(`https://api.github.com/users/sergio-al`)
-  //     .then((response) => response.json())
-  //     .then(console.log)
-  //     .catch(console.error);
-
-  //fetch data with async/await
-  requestGithubUser("sergio-al");
-
   return (
     <div className="container">
-      <AppAll />
+      <GithubUser login="sergio-al" />
     </div>
   );
 }
