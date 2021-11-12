@@ -1,7 +1,7 @@
 import React, { createContext } from "react";
 import { render } from "react-dom";
 import "./assets/styles/styles.scss";
-import App from "./components/app-files/AppDataSection";
+import App from "./components/suspense-section/AppSuspense";
 import reportWebVitals from "./reportWebVitals";
 import colors from "./utils/color-data.json";
 import ColorProvider from "./components/color-hooks";
