@@ -1,6 +1,7 @@
 # Important: Modify the version of node-sass
 
 In package.json, make sure you are using the right version of node-sass with your node version, visit the npm page for node-sass
+I've installed node-sass following the Create-React-App documentation
 
 # Getting Started with Create React App
 
